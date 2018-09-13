@@ -245,7 +245,36 @@ def long_paths(tree, n):
     >>> long_paths(whole, 4)
     [Link(0, Link(11, Link(12, Link(13, Link(14)))))]
     """
-    "*** YOUR CODE HERE ***"
+    def copy_link(link):
+        result = Link(link.first)
+        temp = result
+        link = link.rest
+        while not link is Link.empty:
+            temp.rest = Link(link.first)
+            temp = temp.rest
+            link = link.rest
+        return result
+    def insert_end_of_link(link, insert_elem, link_length):
+        temp = link
+        for x in range(0, link_length-1):
+            temp = temp.rest
+        temp.rest = Link(insert_elem)
+        return link
+    def caculate_single_path(tree, link, path_list, require_length, current_length):
+        if link is Link.empty:
+            link = Link(tree.label)
+        else:    
+            link = insert_end_of_link(link, tree.label, current_length)
+        if Tree.is_leaf(tree) and current_length >= require_length:
+            path_list.append(link)
+        else:
+            for branch in tree.branches:
+                new_link = copy_link(link) 
+                caculate_single_path(branch, new_link, path_list, require_length, current_length+1)
+    result = []
+    caculate_single_path(tree, Link.empty, result, n, 0)
+    return result
+
 
 # Orders of Growth
 def zap(n):
