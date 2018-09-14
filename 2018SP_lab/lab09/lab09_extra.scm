@@ -8,12 +8,12 @@
 
 ; Q6
 (define (composed f g)
-  'YOUR-CODE-HERE
+  (lambda (x) (f (g x)))
 )
 
 ; Q7
 (define (remove item lst)
-  'YOUR-CODE-HERE
+  (filter (lambda (x) (not (= x item))) lst)
 )
 
 
@@ -29,7 +29,13 @@
 (define (max a b) (if (> a b) a b))
 (define (min a b) (if (> a b) b a))
 (define (gcd a b)
-  'YOUR-CODE-HERE
+  (cond ((or (= a 0)
+             (= b 0)) (max a b))
+        ((= (remainder (max a b) (min a b)) 0)
+        	(min a b))
+        (else (gcd (min a b)
+      	   		(remainder (max a b) (min a b))))
+  )
 )
 
 ;;; Tests
@@ -45,7 +51,12 @@
 
 ; Q10
 (define (substitute s old new)
-  'YOUR-CODE-HERE
+  (define (substitute s pair old new acc)
+    (cond ((not (null? pair)) (substitute s (car pair) old new acc))
+          
+          ((eq? (car s) old) (substitute (cdr s) () old new (append acc (list new)))))
+  )
+
 )
 
 ; Q11
