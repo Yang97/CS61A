@@ -46,7 +46,9 @@
 
 ; Q9
 (define (no-repeats s)
-  'YOUR-CODE-HERE
+  (cond ((null? s) s)
+        (else (cons (car s) (no-repeats (filter (lambda (x) (not (= x (car s)))) (cdr s)))))
+  )
 )
 
 ; Q10
