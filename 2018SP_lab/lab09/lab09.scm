@@ -19,12 +19,12 @@
 ; Q3
 (define (filter f lst)
   (define (filter f lst acc)
-  		  ((cond ((null? lst) 
+  		  (cond ((null? lst) 
   		  			acc)
   		  		 ((f (car lst)) 
   		  		 	(if (null? acc)
   		  		 		(filter f (cdr lst) 
-  		  		 				  (cons (car lst) nil))
+  		  		 				  (list (car lst)))
   		  		 		)
   		  		 		(filter f (cdr lst) 
   		  		 				  (append acc (list (car lst)))
@@ -33,8 +33,7 @@
   		  		 (else 
   		  		 	(filter f (cdr lst) acc))
   		  ))
-  )
-  (filter f lst nil)
+  (filter f lst ())
 ) 
 
 
