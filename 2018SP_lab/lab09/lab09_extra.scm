@@ -65,5 +65,6 @@
 
 ; Q11
 (define (sub-all s olds news)
-  'YOUR-CODE-HERE
+  (cond ((null? olds) s)
+        (else (sub-all (substitute s (car olds) (car news)) (cdr olds) (cdr news))))
 )
